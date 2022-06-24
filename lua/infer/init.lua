@@ -42,17 +42,11 @@ function M.focus(errnr)
 
   local newqf = {}
   for index, suberr in ipairs(item.bug_trace) do
-    local desc
-    if suberr.description and #suberr.description > 0 then
-      desc = suberr.description
-    else
-      desc = item.qualifier
-    end
     local nqfitem = {
       filename = suberr.filename,
       lnum = suberr.line_number,
       col = suberr.column_number,
-      text = desc,
+      text = suberr.description,
       nr = suberr.level,
       valid = true,
     }
