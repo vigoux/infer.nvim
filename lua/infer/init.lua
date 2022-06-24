@@ -37,11 +37,11 @@ end
 function M.focus(errnr)
   local qfstate = vim.fn.getqflist { idx = 0, context = true }
 
-  local item = qfstate.context[qfstate.idx]
+  local item = qfstate.context[errnr or qfstate.idx]
   if not item then return end
 
   local newqf = {}
-  for index, suberr in ipairs(item.bug_trace) do
+  for _, suberr in ipairs(item.bug_trace) do
     local nqfitem = {
       filename = suberr.filename,
       lnum = suberr.line_number,
