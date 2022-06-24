@@ -46,7 +46,7 @@ function M.focus(errnr)
     if suberr.description and #suberr.description > 0 then
       desc = suberr.description
     else
-      desc = "[STUB] " .. item.description
+      desc = item.qualifier
     end
     local nqfitem = {
       filename = suberr.filename,
