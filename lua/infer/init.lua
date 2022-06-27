@@ -12,20 +12,22 @@ local function load_report(fname)
   end
 end
 
-function M.to_qflist(fname)
-  fname = fname or "./infer-out/report.json"
+function M.to_qflist(btype)
+  fname = "./infer-out/report.json"
   local content = load_report(fname)
   local qf_content = {}
   for index, err in ipairs(content) do
-    local qfitem = {
-      filename = err.file,
-      lnum = err.line,
-      col = err.column,
-      nr = index,
-      text = err.qualifier,
-      valid = true,
-    }
-    table.insert(qf_content, qfitem)
+    if type(btype) ~= "string" or err.bug_type:find(btype) then
+      local qfitem = {
+        filename = err.file,
+        lnum = err.line,
+        col = err.column,
+        nr = index,
+        text = err.qualifier,
+        valid = true,
+      }
+      table.insert(qf_content, qfitem)
+    end
   end
   vim.fn.setqflist({}, ' ', {
     items = qf_content,
